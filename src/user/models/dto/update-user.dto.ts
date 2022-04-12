@@ -8,12 +8,6 @@ export class UpdateUserDto {
   nome: string;
 
   @ApiProperty()
-  contacto1: number;
-
-  @ApiProperty()
-  contacto2: number;
-
-  @ApiProperty()
   tipo_user: string;
 
   password: string;

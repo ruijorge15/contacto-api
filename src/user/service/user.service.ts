@@ -59,28 +59,19 @@ export class UserService {
   }
 
   async getAllUsers(): Promise<User[]> {
-    return await this.userModel.find().populate('centro').exec();
+    return await this.userModel.find().exec();
   }
 
   async getAllUsersbyTipoUser(tipo_user: string): Promise<User[]> {
-    return await this.userModel
-      .find({ tipo_user: tipo_user })
-      .populate('centro')
-      .exec();
+    return await this.userModel.find({ tipo_user: tipo_user }).exec();
   }
 
-  async getAllUsersbyCentro(centro: string): Promise<User[]> {
-    return await this.userModel
-      .find({ centro: centro })
-      .populate('centro')
-      .exec();
+  async getAllUsersbyCentro(): Promise<User[]> {
+    return await this.userModel.find().exec();
   }
 
   async getUserById(_id: string): Promise<User> {
-    const userAlreadyExists = await this.userModel
-      .findById(_id)
-      .populate('centro')
-      .exec();
+    const userAlreadyExists = await this.userModel.findById(_id).exec();
     if (!userAlreadyExists) throw new NotFoundException(`User is not Exists`);
     return userAlreadyExists;
   }
@@ -99,7 +90,6 @@ export class UserService {
   async getUserByEmail(email: string): Promise<User> {
     const userAlreadyExists = await this.userModel
       .findOne({ email: email })
-      .populate('centro')
       .exec();
 
     if (!userAlreadyExists) throw new NotFoundException(`User is not Exists`);

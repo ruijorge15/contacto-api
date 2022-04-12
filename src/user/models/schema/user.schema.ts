@@ -4,8 +4,6 @@ export const UserSchema = new mongoose.Schema(
   {
     email: { type: String, unique: true },
     nome: String,
-    contacto1: Number,
-    contacto2: Number,
     tipo_user: String,
     password: String,
     salt: String,
