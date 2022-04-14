@@ -1,6 +1,18 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Public } from 'src/auth/decoretor/public.decorator';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { CreateUserDto } from 'src/user/models/dto/create-user.dto';
 import { CreateContactoDto } from '../models/dtos/create-contacto.dto';
 import { UpdateContactoDto } from '../models/dtos/update-contacto.dto';
 import { ContactoService } from '../service/contacto.service';
@@ -9,7 +21,7 @@ import { ContactoService } from '../service/contacto.service';
 export class ContactoController {
   constructor(private readonly contactoService: ContactoService) {}
 
-  @Public()
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createContacto(
     @Res() res,
@@ -17,6 +29,20 @@ export class ContactoController {
   ) {
     const newContacto = await this.contactoService.createContacto(
       createContactoDto,
+    );
+    return res.status(HttpStatus.CREATED).json(newContacto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('userContacto')
+  async createUserContacto(
+    @Res() res,
+    @Body() createContactoDto: CreateContactoDto,
+    @Body() createUserDto: CreateUserDto,
+  ) {
+    const newContacto = await this.contactoService.createUserContacto(
+      createContactoDto,
+      createUserDto,
     );
     return res.status(HttpStatus.CREATED).json(newContacto);
   }

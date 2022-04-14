@@ -32,18 +32,19 @@ export class UserService {
       );
     }
 
-    if (
-      createUserDto.tipo_user.toLowerCase() === 'Administrador'.toLowerCase()
-    ) {
-      createUserDto.isAdmin = true;
-      createUserDto.isFuncionario = false;
-    } else if (
-      createUserDto.tipo_user.toLowerCase() === 'Funcionario'.toLowerCase()
-    ) {
-      createUserDto.isAdmin = false;
-      createUserDto.isFuncionario = true;
+    if (createUserDto.tipo_user !== undefined) {
+      if (
+        createUserDto.tipo_user.toLowerCase() === 'Administrador'.toLowerCase()
+      ) {
+        createUserDto.isAdmin = true;
+        createUserDto.isFuncionario = false;
+      } else if (
+        createUserDto.tipo_user.toLowerCase() === 'Funcionario'.toLowerCase()
+      ) {
+        createUserDto.isAdmin = false;
+        createUserDto.isFuncionario = true;
+      }
     }
-
     const newUser = new this.userModel(createUserDto);
     return await newUser.save();
   }

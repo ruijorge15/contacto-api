@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateUserDto } from 'src/user/models/dto/create-user.dto';
+import { UserService } from 'src/user/service/user.service';
 import { CreateContactoDto } from '../models/dtos/create-contacto.dto';
 import { UpdateContactoDto } from '../models/dtos/update-contacto.dto';
 import { Contacto } from '../models/interface/contacto.interface';
@@ -9,11 +11,22 @@ import { Contacto } from '../models/interface/contacto.interface';
 export class ContactoService {
   constructor(
     @InjectModel('Contacto') private readonly ContactoModel: Model<Contacto>,
+    private userService: UserService
   ) {}
 
   async createContacto(
     createContactoDto: CreateContactoDto,
   ): Promise<Contacto> {
+    const newContacto = new this.ContactoModel(createContactoDto);
+    return await newContacto.save();
+  }
+
+  async createUserContacto(
+    createContactoDto: CreateContactoDto,
+    createUserDto: CreateUserDto
+  ): Promise<Contacto> {
+    const newUser = await this.userService.createUser(createUserDto);
+    createContactoDto.user = newUser;
     const newContacto = new this.ContactoModel(createContactoDto);
     return await newContacto.save();
   }
