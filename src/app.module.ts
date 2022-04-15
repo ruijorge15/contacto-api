@@ -8,12 +8,16 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/contactos', {
-      autoCreate: true,
-    }),
+    MongooseModule.forRoot(
+      //'mongodb://localhost/contactos',
+      'mongodb+srv://sandro27:1421@cluster0.nt8gk.mongodb.net/contactoDB?retryWrites=true&w=majority',
+      {
+        autoCreate: true,
+      },
+    ),
     UserModule,
     ContactoModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
