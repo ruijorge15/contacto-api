@@ -48,21 +48,9 @@ export class ContactoService {
     return await this.ContactoModel.find().populate('user').exec();
   }
 
-  async getAllContactosbyTipoContacto(
-    tipo_Contacto: string,
-  ): Promise<Contacto[]> {
-    return await this.ContactoModel.find({ tipo_Contacto: tipo_Contacto })
-      .populate('user')
-      .exec();
-  }
-
-  async getAllContactosbyCentro(): Promise<Contacto[]> {
-    return await this.ContactoModel.find().populate('user').exec();
-  }
-
   async getContactoById(_id: string): Promise<Contacto> {
     const ContactoAlreadyExists = await this.ContactoModel.findById(_id)
-      .populate('centro')
+      .populate('user')
       .exec();
     if (!ContactoAlreadyExists)
       throw new NotFoundException(`Contacto is not Exists`);
