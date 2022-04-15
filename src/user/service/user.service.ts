@@ -38,11 +38,19 @@ export class UserService {
       ) {
         createUserDto.isAdmin = true;
         createUserDto.isFuncionario = false;
+        createUserDto.isContacto = false;
       } else if (
         createUserDto.tipo_user.toLowerCase() === 'Funcionario'.toLowerCase()
       ) {
         createUserDto.isAdmin = false;
         createUserDto.isFuncionario = true;
+        createUserDto.isContacto = false;
+      } else if (
+        createUserDto.tipo_user.toLowerCase() === 'Contacto'.toLowerCase()
+      ) {
+        createUserDto.isAdmin = false;
+        createUserDto.isFuncionario = false;
+        createUserDto.isContacto = true;
       }
     }
     const newUser = new this.userModel(createUserDto);

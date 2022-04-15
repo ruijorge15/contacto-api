@@ -14,4 +14,5 @@ export class UpdateUserDto {
   salt: string;
   isAdmin: boolean;
   isFuncionario: boolean;
+  isContacto: boolean;
 }

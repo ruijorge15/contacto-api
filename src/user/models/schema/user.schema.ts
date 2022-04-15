@@ -9,6 +9,7 @@ export const UserSchema = new mongoose.Schema(
     salt: String,
     isAdmin: { type: Boolean, default: false },
     isFuncionario: { type: Boolean, default: false },
+    isContacto: { type: Boolean, default: false },
   },
   { timestamps: true, collection: 'users' },
 );

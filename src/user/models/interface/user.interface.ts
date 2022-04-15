@@ -7,6 +7,6 @@ export interface User extends Document {
   password: string;
   salt: string;
   isAdmin: boolean;
-  isGestor: boolean;
   isFuncionario: boolean;
+  isContacto: boolean;
 }

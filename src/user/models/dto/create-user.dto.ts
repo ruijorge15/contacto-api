@@ -14,4 +14,5 @@ export class CreateUserDto {
   salt: string;
   isAdmin: boolean;
   isFuncionario: boolean;
+  isContacto: boolean;
 }
